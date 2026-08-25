@@ -1,4 +1,4 @@
-import detect
+from . import detect
 
 
 def imports(path: str) -> str:
