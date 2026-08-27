@@ -32,7 +32,7 @@ from crossportability import detect, report
 
 ### Detection
 
-CrossPortability can scan Python source files and identify potentially platform-specific code.
+CrossPortability analyzes Python source files and identifies potentially platform-specific code.
 
 For example, consider the following Python code:
 
@@ -74,24 +74,20 @@ OS-SPECIFIC PATHS
 FILE: example.py
   Potential platform-specific path detected
 
-
 PLATFORM DETECTION
 
 FILE: example.py
   Platform-specific usage detected
-
 
 SYSTEM COMMANDS
 
 FILE: example.py
   System command detected
 
-
 PLATFORM-SPECIFIC IMPORTS
 
 FILE: example.py
   No findings
-
 
 ENVIRONMENT VARIABLES
 
@@ -99,7 +95,7 @@ FILE: example.py
   No findings
 ~~~
 
-> Note: CrossPortability identifies potentially platform-specific code. A finding does not necessarily mean that the code is incompatible with another operating system.
+> **Note:** CrossPortability identifies potentially platform-specific code. A finding does not necessarily mean that the code is incompatible with another operating system.
 
 ## How It Works
 
@@ -107,7 +103,13 @@ CrossPortability uses Python's built-in `ast` module to analyze Python source co
 
 Instead of simply searching for specific strings, it examines the structure of Python code to identify platform-related patterns.
 
-This allows CrossPortability to provide more structured and meaningful detection results.
+The detected patterns are organized into five categories:
+
+- OS-specific paths
+- Platform-specific usage
+- System commands
+- Platform-specific imports
+- Environment variables
 
 ## Development
 
