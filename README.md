@@ -1,10 +1,10 @@
-CrossPortability
+# CrossPortability
 
-A Python library for detecting potentially platform-specific code and improving cross-platform compatibility.
+CrossPortability is an open-source Python library for detecting potentially platform-specific code in Python projects.
 
-CrossPortability analyzes Python source files and identifies patterns that may behave differently across operating systems.
+It helps developers identify code that may behave differently across operating systems, making cross-platform compatibility issues easier to find and review.
 
-Features
+## Features
 
 CrossPortability currently detects:
 
@@ -14,80 +14,77 @@ CrossPortability currently detects:
 - Platform-specific imports
 - Environment variables
 
-The results are organized by detection category, making potential portability issues easier to review.
+## Installation
 
-Installation
+Install CrossPortability directly from PyPI:
 
-Install CrossPortability from PyPI:
+~~~bash
+pip install crossportability
+~~~
 
-python -m pip install crossportability
+## How to Use
 
-Quick Start
+Import CrossPortability into your Python project:
 
-Import the library:
-
+~~~python
 from crossportability import detect, report
+~~~
 
-Detect platform-specific code
+### Detection
 
-from crossportability import detect
+CrossPortability can scan Python source files and identify potentially platform-specific code.
 
-results = detect("example.py")
+For example, consider the following Python code:
 
-print(results)
+~~~python
+import os
+import subprocess
 
-The detector returns results grouped by category.
+path = "C:\\Users\\example\\project"
 
-Example:
+if os.name == "nt":
+    subprocess.run("dir", shell=True)
+~~~
 
-{
-    'os_paths': {
-        'example.py': []
-    },
-    'platform_usage': {
-        'example.py': []
-    },
-    'system_commands': {
-        'example.py': []
-    },
-    'imports': {
-        'example.py': []
-    },
-    'environment_variables': {
-        'example.py': []
-    }
-}
+CrossPortability can identify potentially platform-specific patterns such as:
 
-Generate a Report
+- Windows-specific paths
+- Platform checks
+- System commands
 
-The "report" module can be used to present detection results in a readable format.
+Detection results are organized into the following categories:
 
-from crossportability import detect, report
+~~~text
+os_paths
+platform_usage
+system_commands
+imports
+environment_variables
+~~~
 
-results = detect("example.py")
+### Reporting
 
-print(report(results))
+The `report` module presents detection results in a readable format.
 
-Example output:
+Example report:
 
-=== CROSSPORTABILITY REPORT ===
-
+~~~text
 OS-SPECIFIC PATHS
 
 FILE: example.py
-  No findings
+  Potential platform-specific path detected
 
 
 PLATFORM DETECTION
 
 FILE: example.py
-  No findings
+  Platform-specific usage detected
 
 
 SYSTEM COMMANDS
 
 FILE: example.py
-  No findings
+  System command detected
 
 
 PLATFORM-SPECIFIC IMPORTS
@@ -100,79 +97,51 @@ ENVIRONMENT VARIABLES
 
 FILE: example.py
   No findings
+~~~
 
-«Note: CrossPortability reports potentially platform-specific code. A finding does not necessarily mean that the code will fail on another operating system.»
+> Note: CrossPortability identifies potentially platform-specific code. A finding does not necessarily mean that the code is incompatible with another operating system.
 
-Example
+## How It Works
 
-Consider the following Python code:
+CrossPortability uses Python's built-in `ast` module to analyze Python source code.
 
-import os
-import subprocess
+Instead of simply searching for specific strings, it examines the structure of Python code to identify platform-related patterns.
 
-path = "C:\\Users\\example\\project"
+This allows CrossPortability to provide more structured and meaningful detection results.
 
-if os.name == "nt":
-    subprocess.run("dir", shell=True)
-
-CrossPortability can identify potentially platform-specific constructs such as:
-
-- Windows-specific paths
-- Platform checks
-- System commands
-
-This allows developers to review these areas before moving their project to another operating system.
-
-How It Works
-
-CrossPortability uses Python's built-in "ast" module to analyze Python source code.
-
-Rather than relying solely on text matching, it examines the structure of the code to identify platform-related patterns.
-
-The detection system is organized into separate categories so additional checks can be added as the project develops.
-
-Project Structure
-
-CrossPortability/
-│
-├── crossportability/
-│   ├── __init__.py
-│   ├── detect.py
-│   └── report.py
-│
-├── LICENSE
-├── README.md
-└── pyproject.toml
-
-Development
+## Development
 
 Clone the repository:
 
+~~~bash
 git clone <repository-url>
 cd CrossPortability
+~~~
 
 Install the package in editable mode:
 
-python -m pip install -e .
+~~~bash
+pip install -e .
+~~~
 
-This allows changes to the source code to be tested without reinstalling the package after every modification.
+Editable installation allows changes to the source code to be tested without reinstalling the package after every modification.
 
-Contributing
+## Contributing
 
-Contributions and suggestions are welcome.
+Contributions, suggestions, and bug reports are welcome.
 
-If you find a platform-specific pattern that CrossPortability does not currently detect, you can open an issue describing the pattern or submit a pull request with an improvement.
+If you find a platform-specific pattern that CrossPortability does not currently detect, feel free to open an issue or submit a pull request.
 
-License
+## License
 
-See the "LICENSE" file for the project's license.
+See the `LICENSE` file for information about the project's license.
 
-PyPI
+## PyPI
 
 CrossPortability is available on PyPI:
 
 https://pypi.org/project/crossportability/
 
-Version
+## Version
 
-0.1.0
+**0.1.0**
