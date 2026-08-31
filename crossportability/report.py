@@ -133,7 +133,7 @@ def environment(path: str) -> str:
     return "\n".join(report)
 
 
-def scan(path: str) -> str:
+def scan(path: str) -> str: #generates a report which contains all findings from a directory/file
     """
     Generate a complete portability report.
 
@@ -147,7 +147,8 @@ def scan(path: str) -> str:
         ValueError: If the path does not exist or is invalid.
     """
     sections = []
-    sections.append("OS-SPECIFIC PATHS")
+#for adding each detection category as a separate section
+    sections.append("OS-SPECIFIC PATHS") 
     sections.append(ospath(path))
     sections.append("PLATFORM DETECTION")
     sections.append(platform_usage(path))
