@@ -1,8 +1,8 @@
-from pathlib import Path
-import ast
+from pathlib import Path #for finding out the file path
+import ast #parsing of directories/files for analysis
 
 
-def _validate_path(path: str | Path) -> Path:
+def _validate_path(path: str | Path) -> Path: #Checking if the given path exists
     """
     Validate that the supplied path exists.
 
@@ -21,7 +21,7 @@ def _validate_path(path: str | Path) -> Path:
     return path
 
 
-def _get_python_files(path: str | Path) -> list[Path]:
+def _get_python_files(path: str | Path) -> list[Path]: # generating a iterable of all python files in a given directory if any
     """
     Find Python files from a file or directory path.
 
@@ -44,7 +44,7 @@ def _get_python_files(path: str | Path) -> list[Path]:
     raise ValueError("Invalid path")
 
 
-def imports(path: str | Path) -> dict[str, list[tuple[str, str]]]:
+def imports(path: str | Path) -> dict[str, list[tuple[str, str]]]: #For finding out imports specific to Windows and Linux 
     """
     Detect OS-specific Python imports.
 
@@ -81,7 +81,7 @@ def imports(path: str | Path) -> dict[str, list[tuple[str, str]]]:
     return results
 
 
-def ospath(path: str | Path) -> dict[str, list[tuple[str, str]]]:
+def ospath(path: str | Path) -> dict[str, list[tuple[str, str]]]: # Finding hardcoded file/directiory paths which are os specific 
     """
     Detect hard-coded operating-system-specific paths.
 
@@ -112,7 +112,7 @@ def ospath(path: str | Path) -> dict[str, list[tuple[str, str]]]:
     return results
 
 
-def platform_usage(path: str | Path) -> dict[str, list[str]]:
+def platform_usage(path: str | Path) -> dict[str, list[str]]: # Detects references to os.name and sys.platform
     """
     Detect platform-specific checks using os.name or sys.platform.
 
@@ -142,7 +142,7 @@ def platform_usage(path: str | Path) -> dict[str, list[str]]:
     return results
 
 
-def commands(path: str | Path) -> dict[str, list[str]]:
+def commands(path: str | Path) -> dict[str, list[str]]: #for finding out os specific commands 
     """
     Detect potentially platform-dependent system commands.
 
@@ -173,7 +173,7 @@ def commands(path: str | Path) -> dict[str, list[str]]:
     return results
 
 
-def environment(path: str | Path) -> dict[str, list[tuple[str, str]]]:
+def environment(path: str | Path) -> dict[str, list[tuple[str, str]]]: #for finding access to os.environment["VARIABLES"]
     """
     Detect platform-specific environment variables.
 
@@ -210,7 +210,7 @@ def environment(path: str | Path) -> dict[str, list[tuple[str, str]]]:
     return results
 
 
-def scan(path: str | Path) -> dict:
+def scan(path: str | Path) -> dict: #combines the tasks of all the above functions and returns a dictionary with all findings if any
     """
     Run all portability detection checks on a Python file or directory.
 
